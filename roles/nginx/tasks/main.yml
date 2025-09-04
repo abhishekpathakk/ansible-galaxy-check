@@ -1,0 +1,28 @@
+---
+- name: Install nginx
+  become: true
+  package:
+    name: nginx
+    state: present
+
+- name: Ensure web root exists
+  become: true
+  file:
+    path: "{{ nginx_root }}"
+    state: directory
+    mode: "0755"
+
+- name: Deploy nginx site config
+  become: true
+  template:
+    src: site.conf.j2
+    dest: "/etc/nginx/conf.d/{{ nginx_name }}.conf"
+    mode: "0644"
+  notify: restart nginx
+
+- name: Ensure nginx service is enabled and running
+  become: true
+  service:
+    name: nginx
+    state: started
+    enabled: true
