@@ -2,4 +2,4 @@
 # defaults file for nginx
 nginx_port: 80
 nginx_root: /usr/share/nginx/html
-nginx_name: nginx
+nginx_name: nginx-001
